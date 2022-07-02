@@ -1,0 +1,38 @@
+.btn {
+    border-radius: 50px;
+    border: none;
+    text-decoration: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding: $step * 2 $step * 4;
+    font-size: 1.2rem;
+    color: #fff;
+    font-weight: bold;
+    transition: all .3s ease-in-out;
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0);
+    &.btn-primary {        
+        background: #FF7B47;
+        &:hover {
+            background: rgba(255, 137, 90, 0);
+            border: 1px solid #FF7B47;
+            color: #FF7B47;
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+        }
+        &:active {
+            background: rgba(255, 137, 90, 0.157);
+        }
+    }
+    &.btn-outlined {
+        background: #fff0;
+        border: 1px solid #fff;
+        &:hover {
+            background: rgb(255, 255, 255);
+            color: $font-color;
+        }
+        &:active {
+            background: rgba(255, 255, 255, 0.764);
+        }
+
+    }
+}

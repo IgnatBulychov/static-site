@@ -1,0 +1,8 @@
+node_modules
+.nuxt
+dist
+.env
+.idea
+.eslintcache
+.fontello-session
+docs/alex

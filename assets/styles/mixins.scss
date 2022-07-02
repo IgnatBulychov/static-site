@@ -1,0 +1,10 @@
+@mixin font-size($startSize, $minSize, $layoutWidth) {
+    $addSize: $startSize - $minSize;
+    font-size: $startSize + px;
+    @media (max-width: #{$layoutWidth + px}) {
+        font-size: calc(
+                #{$minSize + px} + #{$addSize} *
+                ((100vw - 320px) / #{$layoutWidth - 320})
+        );
+    }
+}
