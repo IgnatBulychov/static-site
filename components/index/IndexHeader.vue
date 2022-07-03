@@ -30,6 +30,15 @@
                         <path fill="currentColor" d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
                     </svg>
                 </div>
+                <nav class="b-mobile-nav">
+                    <ul>
+                        <li>Home</li>
+                        <li>Product</li>
+                        <li>Pricing</li>
+                        <li>Contact</li>
+                        <nuxt-link to="/login"><li>Войти</li></nuxt-link>
+                    </ul>
+                </nav>
             </div>
         </header>
     </div>
@@ -116,7 +125,7 @@ export default {
         bottom: 0;
         right: 0;
         transform: translateX(+300px);
-        background: rgb(0 0 0 / 70%);
+        background: rgb(0 0 0 / 90%);
         transition: all .2s ease-in-out;
         &.m-open {
             transform: translateX(0);
@@ -127,6 +136,21 @@ export default {
             cursor: pointer;
             display: flex;
             justify-content: flex-end;
+        }
+        .b-mobile-nav {
+            ul {
+                li {
+                    padding: $step * 2 $step * 2;
+                    list-style-type: none;
+                    font-size: 1.5rem;
+                    color: #fff;
+                    transition: color .2s ease-in-out;
+                    cursor: pointer;
+                    &:hover {
+                        color: #f57946;
+                    }
+                }
+            }
         }
     }
 }

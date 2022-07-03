@@ -1,12 +1,10 @@
-
-@import '/components/buttons';
-
 body {
     margin: 0;
     padding: 0;
     color: $font-color;
     font-family: 'Signika Negative', sans-serif;
 }
+
 h1 {
     margin: 0;
 }
@@ -17,4 +15,8 @@ input {
     &:focus {
         outline: none;
     }
+}
+
+a {
+    text-decoration: none;
 }

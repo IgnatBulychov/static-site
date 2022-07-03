@@ -22,27 +22,30 @@ export default {
     script: []
   },
   plugins: [
-    { src: '~/plugins/apiAirtable' },
-    { src: '~/plugins/apiNetlify' }
+    { src: '~/plugins/api' },
+    { src: '~/plugins/handleError' },
+    { src: '~/plugins/notifications' }
   ],
   modules: [
     '@nuxtjs/axios',
+    'cookie-universal-nuxt',
     '@nuxtjs/dotenv',
     ['@nuxtjs/style-resources', {
       scss: [
           '~/assets/styles/variables.scss',
-          '~/assets/styles/global.scss',
           '~/assets/styles/mixins.scss'
       ]
     }]
   ],
+  css: [
+    '~/assets/styles/global',
+    '~/assets/styles/components/buttons.scss',
+  ],
   buildModules: [
     '@nuxtjs/google-fonts',
-    '@nuxtjs/fontawesome'
-  ], 
-  axios: {
-    baseURL: process.env.MAIN_API
-  },
+    '@nuxtjs/fontawesome',
+    '@nuxtjs/vuetify'
+  ],
   googleFonts: {
     families: {
       'Signika Negative': [400]

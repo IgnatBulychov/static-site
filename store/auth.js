@@ -2,21 +2,26 @@ export const state = () => ({
     user: null
 })
 
+export const getters = {
+    isLoggedIn: (state) => {
+        return !!state.user
+    }
+}
+
 export const mutations = {
-    LOGIN (state, user) {
+    login (state, user) {
         state.user = user
+        if (user) {
+            this.$cookies.set('user', user, {
+                maxAge: 60 * 60 * 24 * 365
+            })
+        }
     }
 }
 
 export const actions = {
-    login ({ commit }, user) {
-        const { data } = this.$axios.post('/login', user)
-        commit('LOGIN', data)
-    }
-}
-
-export const getters = {
-    domain () {
-        return process.env.HOST
+    async login ({ commit }, user) {
+        const { data } = await this.$main.post('/login', user)
+        commit('login', data.user)
     }
 }

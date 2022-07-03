@@ -1,42 +1,134 @@
 <template>
-    <div class="c-login">
-        <form class="b-form" @submit.prevent="login">
-            <div class="title">
-                Вход
-            </div>
-            <input
-                type="text"
-                v-model="user.name"
-            />
-            <input
-                type="password"
-                v-model="user.password"
-            />
-            <div class="b-actions">
-                <nuxt-link to="/" class="d-btn d-btn-outlined">
-                    <fa :icon="['fas', 'arrow-left']" />
-                </nuxt-link>
-                <button class="d-btn d-btn-primary" type="submit">
-                    Вход
-                </button>
-            </div>
-        </form>
-    </div>
+  <v-app>
+    <v-main>
+        <v-container>
+        <v-row
+            align="center"
+            justify="center"
+            class="py-5 my-5"
+        >
+            <v-col
+            class="py-5 my-5"
+            cols="12"
+            xs="10"
+            sm="4"
+            md="4"  
+            lg="4"          
+            >   
+            <v-card class="elevation-12 my-5">
+                <v-toolbar
+                color="teal"
+                dark
+                >
+                <v-toolbar-title>Вход</v-toolbar-title>   
+                <v-spacer></v-spacer>     
+                </v-toolbar>
+                <v-form
+                @submit.prevent="authenticate()" 
+                ref="form"    
+                lazy-validation
+                >
+                <v-card-text>
+                    <v-text-field
+                    label="Email"
+                    prepend-icon="mdi-account"
+                    type="email"
+                    v-model="form.email"
+                    :rules="emailRules"
+                    required
+                    color="teal"
+                    :disabled="loading"
+                    ></v-text-field>
+
+                    <v-text-field
+                    id="password"
+                    label="Пароль"
+                    prepend-icon="mdi-lock"
+                    type="password"
+                    v-model="form.password"
+                    :rules="passwordRules"
+                    required
+                    color="teal"
+                    :disabled="loading"
+                    ></v-text-field>
+                </v-card-text>
+
+                <v-card-actions>
+                    <v-btn icon color="teal" to="/">
+                    <v-icon>
+                        mdi-arrow-left
+                    </v-icon>
+                    </v-btn>                              
+                    <div class="flex-grow-1"></div>
+                    <v-btn 
+                        color="teal"
+                        type="submit"
+                        dark
+                        :disabled="loading"
+                    >Войти</v-btn>
+                    </v-card-actions>
+                    <v-progress-linear
+                    v-if="loading"
+                    indeterminate
+                    color="teal"
+                    ></v-progress-linear>
+                </v-form>
+                </v-card>
+            </v-col>
+        </v-row>
+        </v-container>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
 export default {
     name: 'Login',
     layout: 'auth',
     data: () => ({
-        user: {
-            name: '',
+        form: {
+            email: '',
             password: ''
-        }
+        },
+        loading: false,
+        emailRules: [
+            v => !!v || 'Введите E-mail',
+            v => /.+@.+\..+/.test(v) || 'Некорректный E-mail',
+        ],
+        passwordRules: [
+            v => !!v || 'Введите пароль',
+        ],
     }),
+    computed: {
+        ...mapState({
+            meta : state => state.airtable.meta
+        })
+    },
     methods: {
-        login() {
-            this.$router.push('/dashboard')
+        ...mapActions({
+            login : 'auth/login',
+            getMeta: 'airtable/getMeta',
+        }),
+        validate () {
+            if (this.$refs.form.validate()) {
+                return true
+            }
+        },
+        async authenticate() {
+            if (this.validate()) {
+                this.loading = true
+                //try {
+                    await this.login(this.form)
+                    await this.getMeta()
+                    this.$router.push(`/dashboard/${this.meta[0].fields.title}`)
+                /*} catch (e) {
+                    console.log(e)
+                    this.$handleError(e)
+                } finally {
+                    this.loading = false
+                }*/
+            }
         }
     }
 }

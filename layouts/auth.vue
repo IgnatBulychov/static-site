@@ -1,7 +1,9 @@
 <template>
-    <nuxt />
+    <div>
+        <nuxt />
+    </div>
 </template>
 
 <style lang="scss">
-@import '~/assets/styles/components/dashboard/d-buttons';
+
 </style>

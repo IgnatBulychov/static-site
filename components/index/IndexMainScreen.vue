@@ -1,13 +1,13 @@
 <template>
     <div class="c-main-screen">
         <div class="b-wrapper">
-            <!--
+            
             <article>
                 <h1>{{ main.h1 }}</h1>
                     <br>
                 <nuxt-link to="/my">my</nuxt-link>
             </article>
-            -->
+            
             <h1>Non tenetur illo quia.</h1>
             <div class="subtitle">Rerum laborum et.</div>
             <div class="b-actions">
@@ -29,18 +29,19 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
     name: 'MainScreen',
     data: () => ({
         main: {}
     }),
+    computed: {
+        ...mapGetters({
+            isLoggedIn : 'auth/isLoggedIn'
+        })
+    },
     async fetch() {
-        const options = {
-            headers: {
-            'Authorization': 'Bearer keyLVijeLyoUtjj7L'
-            }
-        };
-        const { records } = await this.$axios.$get('https://api.airtable.com/v0/appl9E2VmnD4Zb6x1/main', options)
+        const { records } = await this.$airtable.$get('appl9E2VmnD4Zb6x1/main')
         
         this.main = records[0].fields
     }
