@@ -2,9 +2,11 @@
     <div class="c-index">
         <index-header />
         <main>
-            <index-main-screen/>
+            <index-main-screen
+                :main="main"
+                :benifits="benifits"
+            />
             <div class="b-container">
-                
             </div>
         </main>
         <footer>
@@ -16,9 +18,21 @@
 import IndexHeader from '~/components/index/IndexHeader'
 import IndexMainScreen from '~/components/index/IndexMainScreen'
 export default {
-   components: {
-      IndexMainScreen, IndexHeader
-   }
+    components: {
+        IndexMainScreen, IndexHeader
+    },
+    data: () => ({
+        main: {},
+        benifits: []
+    }),
+    async fetch() {
+        const [main, benifits] = await Promise.all([
+            this.$airtable.$get('main'),
+            this.$airtable.$get('benifits')
+        ])
+        this.main = main.records[0].fields
+        this.benifits = benifits.records
+    }
 }
 </script>
 
@@ -27,9 +41,7 @@ export default {
     .b-container {
         width: $layout-xl;
         margin: 0 auto;
-
-        //@at-root
-        //@at-root
+        //
         height: 10000px;
     }
 }

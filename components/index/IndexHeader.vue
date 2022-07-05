@@ -12,6 +12,7 @@
                         <li>Product</li>
                         <li>Pricing</li>
                         <li>Contact</li>
+                        <nuxt-link to="/login"><li>Login</li></nuxt-link>
                     </ul>
                 </nav>
             </div>
@@ -19,16 +20,12 @@
                 <logo />
                 <div class="e-header-title">Laurie Grant</div>
                 <div @click="menuOpen = true" :class="`e-menu-btn ${menuOpen ? 'm-hidden' : ''}`">
-                    <svg style="width:40px;height:40px" viewBox="0 0 24 24">
-                        <path fill="currentColor" d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
-                    </svg>
+                    <fa :icon="['fas', 'bars']"/>
                 </div>
             </div>
             <div :class="`b-mobile-nav-slider ${ menuOpen ? 'm-open' : ''}`">
                 <div @click="menuOpen = false" class="e-close-btn">
-                    <svg style="width:40px;height:40px" viewBox="0 0 24 24">
-                        <path fill="currentColor" d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
-                    </svg>
+                    <fa :icon="['fas', 'xmark']"/>
                 </div>
                 <nav class="b-mobile-nav">
                     <ul>
@@ -36,7 +33,7 @@
                         <li>Product</li>
                         <li>Pricing</li>
                         <li>Contact</li>
-                        <nuxt-link to="/login"><li>Войти</li></nuxt-link>
+                        <nuxt-link to="/login"><li>Login</li></nuxt-link>
                     </ul>
                 </nav>
             </div>
@@ -79,6 +76,7 @@ export default {
     top: 0;
     width: 100%;
     transition: all .2s ease-in-out;
+    z-index: 1;
     &.m-show {
         background: rgb(0 0 0 / 70%)
     }
@@ -136,6 +134,7 @@ export default {
             cursor: pointer;
             display: flex;
             justify-content: flex-end;
+            font-size: 2rem;
         }
         .b-mobile-nav {
             ul {
@@ -188,6 +187,7 @@ export default {
             .e-menu-btn {
                 cursor: pointer;
                 transition: all .2s;
+                font-size: 2rem;
                 &.m-hidden {
                     opacity: 0;
                 }

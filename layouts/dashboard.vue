@@ -14,7 +14,7 @@
             <v-divider vertical></v-divider>
 
             <v-btn text x-small color="primary" to="/">
-                Предварительный просмотр
+                На сайт
             </v-btn>
 
             <v-divider vertical></v-divider>
@@ -33,7 +33,7 @@
       <v-container>
         <v-row>
           <v-col cols="2">
-            <v-sheet rounded="lg">
+            <v-sheet rounded="lg" v-if="tables">
               <v-list color="transparent">
                 <v-list-item
                   v-for="table in tables"
